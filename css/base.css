@@ -1,0 +1,149 @@
+/* ==========================================================================
+   BASE — design tokens, reset, typography
+   ========================================================================== */
+
+:root {
+  /* Surfaces */
+  --bg: #0A0E13;
+  --bg-2: #0D1218;
+  --surface: #111821;
+  --surface-2: #151E29;
+  --surface-3: #1A2532;
+
+  /* Lines */
+  --line: rgba(150, 178, 205, 0.10);
+  --line-2: rgba(150, 178, 205, 0.18);
+  --line-3: rgba(150, 178, 205, 0.30);
+
+  /* Text */
+  --text: #E8EDF2;
+  --text-2: #B3C0CD;
+  --muted: #7D8B9C;
+
+  /* Accent — drafting steel blue, used sparingly */
+  --accent: #7FB8DA;
+  --accent-strong: #A5D0EA;
+  --accent-ink: #0A0E13;
+  --accent-soft: rgba(127, 184, 218, 0.10);
+
+  /* MEP system colour codes */
+  --sys-hvac: #4C9BE8;
+  --sys-fire: #E05A4F;
+  --sys-plumbing: #3DB38A;
+  --sys-medgas: #D9A441;
+  --sys-machinery: #9C8FE3;
+  --sys-smoke: #8FA6BD;
+  --sys-mech: #7FB8DA;
+
+  /* Typography */
+  --font-sans: "Inter Tight", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --fs-display: clamp(2.6rem, 1.6rem + 4.2vw, 4.6rem);
+  --fs-h2: clamp(1.9rem, 1.4rem + 1.9vw, 2.75rem);
+  --fs-h3: clamp(1.15rem, 1.05rem + 0.4vw, 1.35rem);
+  --fs-lead: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.72rem;
+
+  /* Spacing & shape */
+  --gutter: clamp(16px, 4vw, 32px);
+  --section-y: clamp(80px, 9vw, 136px);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --header-h: 72px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 8px);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+h1, h2, h3, h4, p, ul, ol, figure, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+a { color: inherit; text-decoration: none; }
+
+button, input, textarea, select { font: inherit; color: inherit; }
+
+::selection { background: rgba(127, 184, 218, 0.28); color: #fff; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 200;
+  padding: 10px 14px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+.skip-link:focus { top: 12px; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

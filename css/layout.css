@@ -97,7 +97,7 @@
 .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { top: 21px; transform: rotate(-45deg); }
 
-@media (max-width: 1040px) {
+@media (max-width: 1140px) {
   .nav-toggle { display: block; }
   .site-nav {
     position: fixed;

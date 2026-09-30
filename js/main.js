@@ -31,7 +31,7 @@
   toggle.addEventListener("click", () => setMenu(!nav.classList.contains("is-open")));
   nav.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && nav.classList.contains("is-open")) { setMenu(false); toggle.focus(); } });
-  window.matchMedia("(min-width: 1041px)").addEventListener("change", (e) => { if (e.matches) setMenu(false); });
+  window.matchMedia("(min-width: 1141px)").addEventListener("change", (e) => { if (e.matches) setMenu(false); });
 
   /* ---------- Active navigation link ---------- */
   const links = Array.from(nav.querySelectorAll("ul a"));

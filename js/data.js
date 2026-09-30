@@ -361,6 +361,19 @@ window.PORTFOLIO = {
     }
   ],
 
+  automation: {
+    title: "Revit MEP Supports Add-in",
+    status: "In development",
+    summary:
+      "A BIM automation initiative: a Revit MEP add-in that places supports automatically on ducts, pipes and cable trays, reducing the repetitive manual modeling needed for fabrication-level MEP models.",
+    scope: [
+      { name: "Duct supports", system: "hvac" },
+      { name: "Pipe supports", system: "plumbing" },
+      { name: "Cable tray supports", system: "tray" }
+    ],
+    why: "Supports are one of the most repetitive parts of detailed MEP modeling. Automating their placement frees time for coordination and drawing quality on LOD 500 work."
+  },
+
   education: {
     degree: "Bachelor's Degree of Mechanical Power Engineering",
     school: "Damietta University",

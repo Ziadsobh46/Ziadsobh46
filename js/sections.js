@@ -310,13 +310,42 @@
     </section>`;
   }
 
+  /* ---------------------------------------------------------- Automation */
+  function automation() {
+    const a = D.automation;
+    return `
+    <section class="section section-alt" id="automation" aria-labelledby="automation-title">
+      <div class="container">
+        ${sectionHead("06", "BIM Automation", '<span id="automation-title">Automating repetitive BIM work</span>', "Alongside project delivery, I am developing tools that speed up detailed MEP modeling in Revit.")}
+        <article class="auto-card reveal">
+          <div class="auto-visual">${G.supportsElevation()}</div>
+          <div class="auto-body">
+            <div class="auto-head">
+              <h3>${esc(a.title)}</h3>
+              <span class="badge badge-dev">${esc(a.status)}</span>
+            </div>
+            <p class="auto-summary">${esc(a.summary)}</p>
+            <div class="auto-scope">
+              <span class="label">Scope</span>
+              <ul class="sys-list">${a.scope.map((x) => `<li>${sysDot(x.system)}${esc(x.name)}</li>`).join("")}</ul>
+            </div>
+            <div class="auto-why">
+              <span class="label">Why it matters</span>
+              <p>${esc(a.why)}</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>`;
+  }
+
   /* ----------------------------------------------------------- Education */
   function education() {
     const e = D.education;
     return `
-    <section class="section section-alt" id="education" aria-labelledby="education-title">
+    <section class="section" id="education" aria-labelledby="education-title">
       <div class="container">
-        ${sectionHead("06", "Education & Development", '<span id="education-title">Education and professional development</span>')}
+        ${sectionHead("07", "Education & Development", '<span id="education-title">Education and professional development</span>')}
         <div class="edu-grid">
           <article class="edu-card reveal">
             <div class="edu-card-head">
@@ -372,11 +401,11 @@
     ].filter(Boolean);
 
     return `
-    <section class="section" id="contact" aria-labelledby="contact-title">
+    <section class="section section-alt" id="contact" aria-labelledby="contact-title">
       <div class="container">
         <div class="contact-grid">
           <div class="contact-info">
-            ${sectionHead("07", "Contact", '<span id="contact-title">Get in touch.</span>', "Open to Mechanical BIM, MEP coordination and technical office opportunities. The quickest way to reach me is by email or LinkedIn.")}
+            ${sectionHead("08", "Contact", '<span id="contact-title">Get in touch.</span>', "Open to Mechanical BIM, MEP coordination and technical office opportunities. The quickest way to reach me is by email or LinkedIn.")}
             <ul class="contact-list reveal">
               ${items
                 .map((it) => {
@@ -447,6 +476,7 @@
     projects(),
     expertise(),
     workflow(),
+    automation(),
     education(),
     contact()
   ].join("");

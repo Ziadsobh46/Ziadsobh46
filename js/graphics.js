@@ -19,7 +19,8 @@
     medgas: "#D9A441",
     machinery: "#9C8FE3",
     smoke: "#8FA6BD",
-    mech: "#7FB8DA"
+    mech: "#7FB8DA",
+    tray: "#C9A27A"
   };
   const LINE = "rgba(150,178,205,0.22)";
   const LINE_SOFT = "rgba(150,178,205,0.10)";
@@ -340,5 +341,59 @@
     </svg>`;
   }
 
-  window.PortfolioGraphics = { isoScene, planGraphic, viewCube, desalinationSchematic, COLORS };
+  /* ------------------------------------------------------------------
+     Elevation: duct, pipe and cable tray hung from a slab on supports
+     ------------------------------------------------------------------ */
+  function supportsElevation() {
+    const W = 520, H = 330, x0 = 30, x1 = W - 30;
+    const ROD = "#B3C0CD";
+    const o = [];
+    o.push(`<svg class="supports-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Illustrative elevation of a duct, a pipe and a cable tray hung from a slab on regularly spaced supports">`);
+    o.push(`<defs><pattern id="slab-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V8" stroke="${LINE}" stroke-width="1"/></pattern></defs>`);
+    o.push(`<rect x="20" y="24" width="${W - 40}" height="26" fill="url(#slab-hatch)" stroke="rgba(200,215,230,0.4)" stroke-width="1.2"/>`);
+    o.push(`<text x="24" y="17" class="plan-label plan-dim">SLAB</text>`);
+
+    // Each system has its own support line, staggered so rods never pass through other services
+    const runs = [
+      { y: 90, h: 36, col: COLORS.hvac, label: "DUCT", kind: "duct", xs: [60, 170, 280, 390], half: 26 },
+      { y: 170, h: 14, col: COLORS.plumbing, label: "PIPE", kind: "pipe", xs: [115, 225, 335, 445] },
+      { y: 228, h: 16, col: COLORS.tray, label: "CABLE TRAY", kind: "tray", xs: [88, 198, 308, 418], half: 10 }
+    ];
+    // Rods first (drawn behind the services)
+    runs.forEach((r) => r.xs.forEach((x) => {
+      if (r.kind === "pipe") {
+        o.push(`<path d="M${x} 50V${r.y - 4}" stroke="${ROD}" stroke-width="1.2"/>`);
+      } else {
+        const bottom = r.y + r.h + 4;
+        [x - r.half, x + r.half].forEach((rx) => o.push(`<path d="M${rx} 50V${bottom}" stroke="${ROD}" stroke-width="1.2"/>`));
+      }
+    }));
+    // Services, opaque so nothing reads through them
+    runs.forEach((r) => {
+      const w = x1 - x0;
+      if (r.kind === "duct") o.push(`<rect x="${x0}" y="${r.y}" width="${w}" height="${r.h}" fill="${INK}"/><rect x="${x0}" y="${r.y}" width="${w}" height="${r.h}" fill="${r.col}" fill-opacity=".2" stroke="${r.col}" stroke-width="1.4"/>`);
+      if (r.kind === "pipe") o.push(`<rect x="${x0}" y="${r.y}" width="${w}" height="${r.h}" rx="${r.h / 2}" fill="${INK}"/><rect x="${x0}" y="${r.y}" width="${w}" height="${r.h}" rx="${r.h / 2}" fill="${r.col}" fill-opacity=".24" stroke="${r.col}" stroke-width="1.4"/>`);
+      if (r.kind === "tray") o.push(`<rect x="${x0}" y="${r.y}" width="${w}" height="${r.h}" fill="${INK}"/><path d="M${x0} ${r.y}V${r.y + r.h}H${x1}V${r.y}" fill="${r.col}" fill-opacity=".12" stroke="${r.col}" stroke-width="1.4"/>`);
+      o.push(`<text x="${x1 - 4}" y="${r.y - 6}" text-anchor="end" class="plan-label" style="fill:${r.col}">${r.label}</text>`);
+    });
+    // Support hardware on top: trapeze bars and pipe clamps
+    runs.forEach((r) => r.xs.forEach((x) => {
+      if (r.kind === "pipe") {
+        o.push(`<circle cx="${x}" cy="${r.y + r.h / 2}" r="${r.h / 2 + 3.5}" fill="none" stroke="${ROD}" stroke-width="1.3"/>`);
+      } else {
+        const bottom = r.y + r.h + 4;
+        o.push(`<path d="M${x - r.half - 8} ${bottom}H${x + r.half + 8}" stroke="${ROD}" stroke-width="2.6"/>`);
+      }
+    }));
+    // Support tags on the duct supports + spacing dimension
+    const d = runs[0].xs;
+    d.forEach((x, i) => o.push(`<circle cx="${x}" cy="${H - 22}" r="9" fill="${INK}" stroke="#7FB8DA" stroke-width="1"/><text x="${x}" y="${H - 18.6}" text-anchor="middle" class="plan-label">S${i + 1}</text><path d="M${x} ${H - 31}V${H - 62}" stroke="#7FB8DA" stroke-width=".6" stroke-dasharray="2 3"/>`));
+    const dy = H - 52;
+    o.push(`<path d="M${d[1]} ${dy}H${d[2]}M${d[1]} ${dy - 5}v10M${d[2]} ${dy - 5}v10" stroke="#7D8B9C" stroke-width="1"/>`);
+    o.push(`<text x="${(d[1] + d[2]) / 2}" y="${dy - 7}" text-anchor="middle" class="plan-label plan-dim">SPACING</text>`);
+    o.push(`</svg>`);
+    return o.join("");
+  }
+
+  window.PortfolioGraphics = { isoScene, planGraphic, viewCube, desalinationSchematic, supportsElevation, COLORS };
 })();

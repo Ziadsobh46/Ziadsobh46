@@ -645,6 +645,37 @@
 .wf-applied .label { display: block; margin-bottom: 4px; }
 
 /* ==========================================================================
+   BIM AUTOMATION
+   ========================================================================== */
+.auto-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+.auto-visual {
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 32px);
+  background:
+    linear-gradient(rgba(150,178,205,0.04) 1px, transparent 1px) 0 0 / 20px 20px,
+    linear-gradient(90deg, rgba(150,178,205,0.04) 1px, transparent 1px) 0 0 / 20px 20px,
+    var(--bg);
+  border-right: 1px solid var(--line);
+}
+.supports-svg { width: 100%; height: auto; }
+.auto-body { display: flex; flex-direction: column; gap: 22px; padding: clamp(22px, 3vw, 36px); }
+.auto-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px 20px; flex-wrap: wrap; }
+.auto-head h3 { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem); }
+.badge-dev { color: var(--sys-medgas); border: 1px solid rgba(217,164,65,0.4); }
+.badge-dev::before { content: ""; width: 6px; height: 6px; border-radius: 50%; border: 1px solid currentColor; }
+.auto-summary { color: var(--text-2); font-size: 1.02rem; line-height: 1.7; }
+.auto-scope, .auto-why { display: grid; gap: 10px; padding-top: 18px; border-top: 1px solid var(--line); }
+.auto-why p { color: var(--text-2); font-size: 0.95rem; }
+
+/* ==========================================================================
    EDUCATION & COURSES
    ========================================================================== */
 .edu-grid {
@@ -829,6 +860,8 @@ a.contact-item:hover { border-color: var(--accent); background: var(--surface-2)
   .hero { min-height: auto; padding-top: calc(var(--header-h) + 40px); }
   .hero-inner { grid-template-columns: minmax(0, 1fr); }
   .hero-visual { max-width: 640px; }
+  .auto-card { grid-template-columns: minmax(0, 1fr); }
+  .auto-visual { border-right: 0; border-bottom: 1px solid var(--line); }
   .about-grid,
   .contact-grid,
   .edu-grid { grid-template-columns: minmax(0, 1fr); }
